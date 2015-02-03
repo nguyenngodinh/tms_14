@@ -21,4 +21,4 @@ staging:
 
 production:
   <<: *common
-  database: tms
+  database: tms_staging
