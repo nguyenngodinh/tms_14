@@ -21,3 +21,12 @@ ActiveRecord::Base.transaction do
 	               password_confirmation: password)
 	end
 end
+
+# Courses
+users = User.order(:created_at).take(6)
+50.times do
+  name  = Faker::Name.title
+  content = Faker::Lorem.sentences(5)
+  Course.create!(content: content, name: name) 
+end
+
