@@ -1,0 +1,14 @@
+<% provide(:title, 'Update course') %>
+<h1>Update course</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@course) do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+      <%= f.label 'Details' %>
+      <%= f.text_area :content, class: 'form-control'%>      
+      <%= f.submit "Update course", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
