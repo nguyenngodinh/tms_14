@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update, :index, :destroy]
-  before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: :destroy
+  before_action :logged_in_user, only: [:edit, :update, :index, :destroy, :new, :create]
+  before_action :edit_permission, only: [:edit, :update]
+  before_action :admin_user, only: [:destroy, :new]
   def new
     @user = User.new
   end
@@ -11,8 +11,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params 
     if @user.save
-      log_in @user
-      flash[:success] = "Success signup"
+      
+      flash[:success] = "Success add new trainee"
       redirect_to @user
     else
       #unsuccess
@@ -59,13 +59,19 @@ class UsersController < ApplicationController
         redirect_to login_url
       end
     end
-    #confirm correct user
-    def correct_user
-      @user = User.find params[:id] 
-      redirect_to root_url if !current_user? @user
-    end
+    # #confirm correct user
+    # def correct_user
+    #   @user = User.find params[:id] 
+    #   redirect_to root_url if !current_user? @user
+    # end
     #confirm admin user
     def admin_user
       redirect_to root_url if !current_user.supervisor?
+    end
+    def edit_permission
+      @user = User.find params[:id]
+      if !(current_user?(@user) || current_user.supervisor?)
+        redirect_to root_url
+      end
     end
 end
