@@ -6,27 +6,30 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 ActiveRecord::Base.transaction do
-	User.create!(name: "Ngo Dinh Nguyen",
-							email: "nguyenngodinh@outlook.com",
-							password: "qweasdzxc",
-							password_confirmation: "qweasdzxc",
-							supervisor: true)
-	99.times do |n|
-	  name  = Faker::Name.name
-	  email = "user-#{n+1}@fts.com"
-	  password = "qweasdzxc"
-	  User.create!(name:  name,
-	               email: email,
-	               password:              password,
-	               password_confirmation: password)
-	end
+  User.create!(name: "Ngo Dinh Nguyen",
+              email: "nguyenngodinh@outlook.com",
+              password: "qweasdzxc",
+              password_confirmation: "qweasdzxc",
+              supervisor: true)
+  49.times do |n|
+    name  = Faker::Name.name
+    email = "user-#{n+1}@fts.com"
+    password = "qweasdzxc"
+    User.create!(name:  name,
+                 email: email,
+                 password:              password,
+                 password_confirmation: password)
+  end
+  # Courses
+  f50.times do
+    name  = Faker::Name.title
+    content = Faker::Lorem.sentences(5)
+    Course.create!(content: content, name: name) 
+  end
+  # Subjects
+  50.times do 
+    name = Faker::Name.title
+    info = Faker::Lorem.paragraph
+    Subject.create!(name: name, info: info)
+  end
 end
-
-# Courses
-users = User.order(:created_at).take(6)
-50.times do
-  name  = Faker::Name.title
-  content = Faker::Lorem.sentences(5)
-  Course.create!(content: content, name: name) 
-end
-
