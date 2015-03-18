@@ -1,4 +1,9 @@
 <li>
   Subject Name<%= link_to subject.name, subject %><br>
   Subject Info<%= link_to subject.info, subject %>
+  <% if current_user.supervisor? %>
+    | <%= link_to "delete", subject, method: :delete,
+                                  data: {confirm: "You sure?"} %>
+    | <%= link_to "edit", edit_subject_path(subject) %>
+  <% end %>
 </li>

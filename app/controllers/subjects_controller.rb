@@ -1,4 +1,6 @@
 class SubjectsController < ApplicationController
+  include UsersHelper
+  before_action :supervisor_user, only: [:destroy, :new, :index]
   def new
     @subject = Subject.new
   end
@@ -30,8 +32,13 @@ class SubjectsController < ApplicationController
     @subjects = Subject.paginate page: params[:page]
   end
 
+  def destroy
+    Subject.find(params[:id]).destroy
+    flash[:success] = "Subject deleted"
+    redirect_to subjects_url
+  end
   private
     def subject_params
-      params.require(:subject).permit(:name, :info)
+      params.require(:subject).permit :name, :info
     end
 end
