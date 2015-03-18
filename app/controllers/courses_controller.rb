@@ -13,7 +13,7 @@ class CoursesController < ApplicationController
   end
 
   def destroy
-    Course.find(params[:id]).destroy
+    Course.find params[:id] .destroy
     flash[:success] = "Course deleted"
     redirect_to courses_url
   end
@@ -44,7 +44,7 @@ class CoursesController < ApplicationController
   
   private
     def course_params
-      params.require(:course).permit(:name, :content)
+      params.require(:course).permit :name, :content
     end
 end
 

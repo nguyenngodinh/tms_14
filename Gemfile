@@ -15,7 +15,6 @@ gem 'jbuilder',             		'2.2.3'
 gem 'rb-readline'
 gem 'sdoc',     	            	'0.4.0', group: :doc
 gem 'mysql2'
-gem 'faker',                '1.4.2'
 
 group :development, :test do
   gem 'byebug',      '3.4.0'
