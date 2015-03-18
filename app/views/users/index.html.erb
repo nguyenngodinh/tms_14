@@ -1,8 +1,7 @@
-<% provide(:title, 'All users') %>
-<h1>All users</h1>
-
-<%= will_paginate %>
+<% provide(:title, 'All trainees') %>
+<h1>All Trainees</h1>
+<%= will_paginate @trainees%>
 <ul class="users">
-  <%= render @users %>
+  <%= render @trainees %>
 </ul>
-<%= will_paginate %>
+<%= will_paginate @trainees%>

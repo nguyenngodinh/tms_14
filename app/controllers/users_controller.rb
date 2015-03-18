@@ -15,14 +15,12 @@ class UsersController < ApplicationController
       flash[:success] = "Success add new trainee"
       redirect_to @user
     else
-      #unsuccess
       render 'new'
     end
   end
   def update
     @user = User.find params[:id]
     if @user.update_attributes user_params
-      #handle a successful update.
       flash[:success] = "profile updated!"
       redirect_to @user
     else
@@ -30,28 +28,22 @@ class UsersController < ApplicationController
     end
   end
   def edit
-    @user = User.find params[:id] 
+    @user = User.find params[:id]
   end
   def index
-    @users = User.paginate page: params[:page]
+    @trainees = User.trainees.paginate(page: params[:page])
   end
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
   end
-
-
-
-
-
+  
   private
     def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                        :password_confirmation)
+      params.require(:user).permit :name, :email, :password,
+                                        :password_confirmation
     end
-    #before filter
-    #confirm logged-in user
     def logged_in_user
       unless logged_in?
         store_location
@@ -59,18 +51,12 @@ class UsersController < ApplicationController
         redirect_to login_url
       end
     end
-    # #confirm correct user
-    # def correct_user
-    #   @user = User.find params[:id] 
-    #   redirect_to root_url if !current_user? @user
-    # end
-    #confirm admin user
     def admin_user
       redirect_to root_url if !current_user.supervisor?
     end
     def edit_permission
       @user = User.find params[:id]
-      if !(current_user?(@user) || current_user.supervisor?)
+      if ! current_user?(@user) || current_user.supervisor?
         redirect_to root_url
       end
     end

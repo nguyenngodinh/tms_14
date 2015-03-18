@@ -20,13 +20,11 @@ ActiveRecord::Base.transaction do
                  password:              password,
                  password_confirmation: password)
   end
-  # Courses
-  f50.times do
+  50.times do
     name  = Faker::Name.title
     content = Faker::Lorem.sentences(5)
     Course.create!(content: content, name: name) 
   end
-  # Subjects
   50.times do 
     name = Faker::Name.title
     info = Faker::Lorem.paragraph
