@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
+  include UsersHelper
   before_action :logged_in_user, only: [:edit, :update, :index, :destroy, :new, :create]
   before_action :edit_permission, only: [:edit, :update]
-  before_action :admin_user, only: [:destroy, :new]
+  before_action :supervisor_user, only: [:destroy, :new, :index]
   def new
     @user = User.new
   end
@@ -51,12 +52,9 @@ class UsersController < ApplicationController
         redirect_to login_url
       end
     end
-    def admin_user
-      redirect_to root_url if !current_user.supervisor?
-    end
     def edit_permission
       @user = User.find params[:id]
-      if ! current_user?(@user) || current_user.supervisor?
+      if !current_user?(@user) || current_user.supervisor?
         redirect_to root_url
       end
     end

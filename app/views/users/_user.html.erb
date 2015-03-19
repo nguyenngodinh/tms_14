@@ -3,7 +3,7 @@
   <%= link_to user.name, user %>
   <% if current_user.supervisor? && !current_user?(user) %>
     | <%= link_to "delete", user, method: :delete,
-                                  data: { confirm: "You sure?" } %>
+                                  data: {confirm: "You sure?"} %>
     | <%= link_to "edit", edit_user_path(user) %>
   <% end %>
 
