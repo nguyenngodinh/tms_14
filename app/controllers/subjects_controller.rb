@@ -1,5 +1,6 @@
 class SubjectsController < ApplicationController
   include UsersHelper
+  before_action :logged_in_user, only: [:edit, :update, :index, :destroy, :new, :create]
   before_action :supervisor_user, only: [:destroy, :new, :index]
   def new
     @subject = Subject.new

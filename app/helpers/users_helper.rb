@@ -1,5 +1,4 @@
 module UsersHelper
-  #Return the Gravatar for the given user.
   def gravatar_for(user, options = { size: 80 })
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     size = options[:size]
@@ -9,5 +8,12 @@ module UsersHelper
   private 
     def supervisor_user
       redirect_to root_url unless current_user.supervisor?
+    end
+    def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "please log in"
+        redirect_to login_url
+      end
     end
 end

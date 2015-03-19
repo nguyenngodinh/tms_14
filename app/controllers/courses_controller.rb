@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
-
+  include UsersHelper
+  before_action :logged_in_user, only: [:edit, :update, :index, :destroy, :new, :create]
+  before_action :supervisor_user, only: [:destroy, :new, :index]
   def show
     @course = Course.find params[:id]   
   end
@@ -13,7 +15,7 @@ class CoursesController < ApplicationController
   end
 
   def destroy
-    Course.find params[:id] .destroy
+    Course.find(params[:id]).destroy
     flash[:success] = "Course deleted"
     redirect_to courses_url
   end

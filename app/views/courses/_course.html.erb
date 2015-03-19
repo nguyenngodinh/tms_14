@@ -1,6 +1,9 @@
 <li>
-  <%= link_to course.name, course %>
-  <%= link_to "delete", course, method: :delete,
-                                  data: { confirm: "You sure?" } %>
-  
+  Course Name<%= link_to course.name, course %><br>
+  Course Content<%= link_to course.content, course %>
+  <% if current_user.supervisor? %>
+    | <%= link_to "delete", course, method: :delete,
+                                  data: {confirm: "You sure?"} %>
+    | <%= link_to "edit", edit_course_path(course) %>
+  <% end %>
 </li>
